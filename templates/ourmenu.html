@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Our Menu{% endblock title %}
+{% block content %}
+<section>
+    <div class="block">
+        <div class="fixed-bg" style="background-image: url(../static/images/topbg.jpg);"></div>
+        <div class="page-title-wrapper text-center">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="page-title-inner">
+                    <h1 itemprop="headline">Our Menu</h1>
+                        <span>A Greate Restaurant Website</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="bread-crumbs-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href={% url 'mainpage' %} title="" itemprop="url">Home</a></li>
+            <li class="breadcrumb-item active">our menus</li>
+        </ol>
+    </div>
+
+</div>
+
+<section>
+    <div class="block less-spacing gray-bg top-padd30">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <div class="sec-box">
+                        <div class="title1-wrapper text-center">
+                            <div class="title1-inner">
+                                <span>Your Favourite Food</span>
+                                <h2 itemprop="headline">Choose your Food</h2>
+                            </div>
+                        </div>
+                        <ul class="filter-buttons center">
+                            <li class="active"><a class="brd-rd30" data-filter="*" href={% url 'our_menu' %} itemprop="url">All</a></li>
+   
+                            
+                            {% for catg in catg %}
+                            
+                            <li class="active"><a class="brd-rd30" data-filter="*" href={% url 'our_catg' catg.slug %} itemprop="url">{{catg.catg_name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <div class="remove-ext">
+                            <div class="row">
+                                {% for food in food_Items %}
+                                <div class="col-md-4 col-sm-6 col-lg-4">
+                               
+                                <div class="popular-dish-box style2 wow fadeIn" data-wow-delay="0.2s">
+                                    <div class="popular-dish-thumb">
+                                        <a href="{{food.get_url}}" title="" itemprop="url"><img src="{{food.food_pic.url}}" alt="popular-dish-img1.jpg" itemprop="image"></a>
+                                        <span class="post-rate yellow-bg brd-rd2"><i class="fa fa-star-o"></i> 4.25</span>
+                                    </div>
+                                    <div class="popular-dish-info">
+                                        <h4 itemprop="headline"><a href="{{food.get_url}}" title="" itemprop="url">{{food.food_name}}</a></h4>
+                                        <p itemprop="description">{{food.food_desc|slice:80}}</p>
+                                        <span class="price">Rs {{food.food_price}}</span>
+                                        <a class="brd-rd4 " href="food-detail.html" title="Order Now" itemprop="url">Order Now</a>
+                                        
+                                    </div>
+                                </div><!-- Popular Dish Box -->
+                                
+                            </div>
+                            {% endfor %}
+                            
+                            
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

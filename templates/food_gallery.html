@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Food Gallery {% endblock title %} 
+
+{% block content %}
+
+
+
+
+<section>
+    <div class="block">
+        <div class="fixed-bg" style="background-image: url(../static/images/topbg.jpg);"></div>
+        <div class="page-title-wrapper text-center">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="page-title-inner">
+                    <h1 itemprop="headline">Food Gallery</h1>
+                        <span>A Greate Restaurant Website</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="bread-crumbs-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href={% url 'mainpage' %} title="" itemprop="url">Home</a></li>
+            <li class="breadcrumb-item active">Food Gallery</li>
+        </ol>
+    </div>
+</div>
+
+<section>
+    <div class="block less-spacing gray-bg top-padd30">
+        <div class="container">
+            <div class="row mrg15">
+                <div class="col-md-12">
+                    <div class="sec-box">
+                    <div class="masonry">
+                        <div class="col-md-4 col-sm-6 col-lg-4 filter-item">
+                            <div class="gallery-bx sudo-bg-red wow zoomIn" data-wow-delay="0.2s">
+                                <img src={% static 'images/resource/gallery1-1.jpg' %} alt="gallery1-1.jpg" itemprop="image">
+                                <div class="gallery-info-btns">
+                                    <a class="yellow-bg brd-rd50" href={% static 'images/resource/gallery1-1.jpg' %} data-fancybox="gallery" title="Click to See Image" itemprop="url"><i class="fa fa-search"></i></a>
+                                    <a class="yellow-bg brd-rd50" href="gallery-detail.html" title="Gallery Detail" itemprop="url"><i class="fa fa-chain"></i></a>
+                                </div>
+                                <h3 itemprop="headline"><a href="gallery-detail.html" title="Gallery Detail" itemprop="url">Tried Their Amazing Grilled Ham</a></h3>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

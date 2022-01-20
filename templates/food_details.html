@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Food Details {% endblock title %} 
+
+{% block content %}
+
+
+<div class="bread-crumbs-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href={% url 'mainpage' %} title="" itemprop="url">Home</a></li>
+            <li class="breadcrumb-item active">Food Details</li>
+        </ol>
+    </div>
+</div>
+
+<section>
+    <div class="block gray-bg bottom-padd210 top-padd30">
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="sec-box">
+                        <div class="sec-wrapper">
+                            <div class="col-md-8 col-sm-12 col-lg-8">
+                                <div class="restaurant-detail-wrapper">
+                                    <div class="restaurant-detail-info">
+                                        <div class="restaurant-detail-thumb">
+                                            <ul class="restaurant-detail-img-carousel">
+                                                <li><img class="brd-rd3" src= {{food_detail.food_pic.url}} alt="{{food_detail.slug}}" itemprop="image"></li>
+                                            </ul>  
+                                        </div>
+                                        <div class="restaurant-detail-title">
+                                            <h1 itemprop="headline">{{food_detail.food_name}}</h1>
+                                            <div class="info-meta">
+                                                
+                                            </div>
+                                            <div class="rating-wrapper" style="padding-top: 30px;">
+                                                <a class="gradient-brd brd-rd2" href="#" title="" itemprop="url"><i class="fa fa-star"></i> Rate <i>4.0</i></a>
+                                                <div class="rate-share brd-rd5">
+                                                    <div class="rating-box-wrapper">
+                                                        <span>Rate</span>
+                                                        <div class="rating-box">
+                                                            <span class="brd-rd2 clr1 on"></span>
+                                                            <span class="brd-rd2 clr2 on"></span>
+                                                            <span class="brd-rd2 clr3 on"></span>
+                                                            <span class="brd-rd2 clr4 on"></span>
+                                                            <span class="brd-rd2 clr5 on"></span>
+                                                            <span class="brd-rd2 clr6 on"></span>
+                                                            <span class="brd-rd2 clr7 off"></span>
+                                                            <span class="brd-rd2 clr8 off"></span>
+                                                            <i>4.0</i>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <span class="price">Rs {{food_detail.food_price}}</span>
+                                            <div class="qty-wrap">
+                                                <input class="qty" type="text" value="1">
+                                            </div>
+                                            <p itemprop="description">{{food_detail.food_desc}}</p>
+                                            
+                                            <a class="brd-rd3" href="#" title="" itemprop="url">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Section Box -->
+    </div>
+</section>
+
+{% endblock %}
+
+
