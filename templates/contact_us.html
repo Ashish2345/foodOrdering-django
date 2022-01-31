@@ -66,26 +66,27 @@
                             <div class="contact-form-inner">
                                 <h3 itemprop="headline">If You Got Any Questions <br> Please Do Not Hesitate to Send us a Message.</h3>
                                 <div id="message"></div>
-                                <form method="post" action="https://html.webinane.com/food-chow/contact.php" id="contactform">
+                                <form method="POST" action="" >
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-12 col-sm-6 col-lg-12">
-                                            <input id="name" type="text" placeholder="Your Name">
+                                            <input id="name" name="name" type="text" placeholder="Your Name">
                                         </div>
                                         <div class="col-md-12 col-sm-6 col-lg-12">
-                                            <input id="email" type="email" placeholder="Your Email">
+                                            <input id="email" name="email" type="email" placeholder="Your Email">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-lg-12">
-                                            <input type="text" placeholder="Subject">
+                                            <input type="text" name="subject" placeholder="Subject">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-lg-12">
-                                            <textarea id="comments" placeholder="Message"></textarea>
+                                            <textarea id="comments" name="comments" placeholder="Message"></textarea>
                                         </div>
                                         <!--<div class="col-md-12 col-sm-12 col-lg-12">
                                             <div class="g-recaptcha" data-sitekey="6LelmzAUAAAAAHBE2SJeRMfnzYVxH9RMGQstUij2"></div> 
                                         </div>-->
                                         <div class="col-md-12 col-sm-12 col-lg-12">
                                             <button class="brd-rd2" id="submit" type="submit">SEND MESSAGE</button>
-                                            <img src="assets/images/ajax-loader.gif" class="loader" alt="ajax-loader.gif" itemprop="image">
+                                           
                                         </div>
                                     </div>
                                 </form>

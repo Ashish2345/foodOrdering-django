@@ -55,13 +55,11 @@
                                                    
                                                 </div>
                                             </div>
-                                            <span class="price">Rs {{food_detail.food_price}}</span>
-                                            <div class="qty-wrap">
-                                                <input class="qty" type="text" value="1">
-                                            </div>
-                                            <p itemprop="description">{{food_detail.food_desc}}</p>
+                                            <span class="price">Rs {{food_detail.food_price}}</span><br>
                                             
-                                            <a class="brd-rd3" href="#" title="" itemprop="url">Add to Cart</a>
+                                            <p itemprop="description">{{food_detail.food_desc}}</p><br>
+                                            
+                                            <a class="brd-rd3" href={% url 'add_cart' food_detail.id %} title="" itemprop="url">Add to Cart</a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,6 @@
 from audioop import reverse
+from cgitb import text
+from email import message
 import imp
 from operator import mod
 from django.db import models
@@ -44,3 +46,16 @@ class Food_Items(models.Model):
 
     def __str__(self):
         return self.food_name
+
+class Contact_Us(models.Model):
+    user_name = models.CharField(max_length=50,unique=True)
+    user_email = models.EmailField(max_length=254,unique=True)
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        verbose_name = "Contact Us"
+        verbose_name_plural = "Contact Us"
+
+
+   

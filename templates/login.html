@@ -1,15 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Login{% endblock title %}
+{% block title %}
+{% if page == 'login' %}
+Login
+{% else %}
+Register
+{% endif %}
+
+{% endblock title %}
 {% block content %}
+{% if request.GET.command == 'verification' %}
+<div class="container mx-auto alert alert-info" role="alert" style="max-width:1024px;margin-left:200px; margin-top:80px;margin-bottom:80px;padding:20px;">
+
+Thank you for your registration.We have send you a verification to your email address [{{request.GET.email}}]
+<br><br>
+Already Verified?<a href="{% url 'login' %}" style="color: blue;"><b> Login</b></a>
+
+</div>
+{% else %}
         <section>
             <div class="block">
-                <div class="fixed-bg" style="background-image: url(../static/images/topbg.jpg);"></div>
+                <div class="fixed-bg" style="background-image: url({% static 'images/topbg.jpg' %});"></div>
                 <div class="page-title-wrapper text-center">
                     <div class="col-md-12 col-sm-12 col-lg-12">
                         <div class="page-title-inner">
-                            <h1 itemprop="headline">Login & Register</h1>
+                            <h1 itemprop="headline">
+                                {% if page == 'login' %}
+                                Login
+                                {% else %}
+                                Register
+                                {% endif %}
+                            </h1>
                                 <span>A Greate Restaurant Website</span>
                         </div>
                     </div>
@@ -17,25 +39,37 @@
             </div>
         </section>
 
+        
+
         <div class="bread-crumbs-wrapper">
             <div class="container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" title="" itemprop="url">Home</a></li>
-                    <li class="breadcrumb-item active">Login & Register</li>
+                    <li class="breadcrumb-item active">
+                        {% if page == 'login' %}
+                                Login
+                                {% else %}
+                                Register
+                                {% endif %}
+                    </li>
                 </ol>
             </div>
         </div>
 
         <section>
-            <div class="block top-padd30">
+            <div style="padding-left: 20%;">
+            <!--  Login Process -->
+            <div class="block top-padd30" >
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-lg-12">
                             <div class="login-register-wrapper">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-6">
+                                    {% if page == "login" %}
+                                    <div class="col-md-8 col-sm-12 col-lg-8">
                                         <div class="sign-popup-wrapper brd-rd5">
                                             <div class="sign-popup-inner brd-rd5">
+                                                {% include "alerts.html" %}
                                                 <div class="sign-popup-title text-center">
                                                     <h4 itemprop="headline">SIGN IN</h4>
                                                     <span>with your social network</span>
@@ -46,19 +80,20 @@
                                                     <a class="twitter brd-rd3" href="#" title="Twitter" itemprop="url" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
                                                 </div>
                                                 <span class="popup-seprator text-center"><i class="brd-rd50">or</i></span>
-                                                <form class="sign-form">
+                                                <form class="sign-form" method="POST" action="{% url 'login' %}">
+                                                    {% csrf_token %}
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <input class="brd-rd3" type="text" placeholder="Username or Email">
+                                                            <input class="brd-rd3" name="username" type="text" placeholder="Username or Email">
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <input class="brd-rd3" type="password" placeholder="Password">
+                                                            <input class="brd-rd3" name="password" type="password" placeholder="Password">
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <button class="red-bg brd-rd3" type="submit">SIGN IN</button>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <a class="sign-btn" href="#" title="" itemprop="url">Not a member? Sign up</a>
+                                                            <a class="sign-btn" href="{% url 'register' %}" title="" itemprop="url">Not a member? Sign up</a>
                                                             <a class="recover-btn" href="#" title="" itemprop="url">Recover my password</a>
                                                         </div>
                                                     </div>
@@ -66,9 +101,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-6">
+                                    {% else %}
+
+                                    <div class="col-md-8 col-sm-12 col-lg-8">
                                         <div class="sign-popup-wrapper brd-rd5">
                                             <div class="sign-popup-inner brd-rd5">
+                                                {% include "alerts.html" %}
                                                 <div class="sign-popup-title text-center">
                                                     <h4 itemprop="headline">SIGN UP</h4>
                                                     <span>with your social network</span>
@@ -79,34 +117,49 @@
                                                     <a class="twitter brd-rd3" href="#" title="Twitter" itemprop="url" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
                                                 </div>
                                                 <span class="popup-seprator text-center"><i class="brd-rd50">or</i></span>
-                                                <form class="sign-form">
+                                                <form class="sign-form" method="POST" action="{% url 'register' %}">
+                                                    {% csrf_token %}
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <input class="brd-rd3" type="text" placeholder="Username">
+                                                           {{reg.username}}
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <input class="brd-rd3" type="email" placeholder="Email">
+                                                            {{reg.email}}
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <input class="brd-rd3" type="password" placeholder="Password">
+                                                            {{reg.password1}}
+                                                           
                                                         </div>
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                                                           
+                                                            {{reg.password2}}
+                                                        </div>
+
+
+                                                       
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <button class="red-bg brd-rd3" type="submit">REGISTER NOW</button>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                            <a class="sign-btn" href="#" title="" itemprop="url">Already Registered? Sign in</a>
+                                                            <a class="sign-btn" href="{% url 'login' %}" title="" itemprop="url">Already Registered? Sign in</a>
                                                             <a class="recover-btn" href="#" title="" itemprop="url">Recover my password</a>
                                                         </div>
+                                                        
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+                                    {% endif %}
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+           
+        </div>
         </section>
+{% endif %}
 {% endblock content%}

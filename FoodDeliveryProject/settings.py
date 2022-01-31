@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'deliverFood.apps.DeliverfoodConfig',
+    'carts.apps.CartsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'deliverFood.context_processor.catg_det',
+                'carts.context_processor.counter',
             ],
         },
     },
@@ -131,3 +133,10 @@ MEDIA_ROOT =  os.path.join(BASE_DIR,'static/the_picture')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "testing89756@gmail.com"
+EMAIL_HOST_PASSWORD = "ilovemessi"
+EMAIL_USE_TLS = True
+
+

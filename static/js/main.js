@@ -473,6 +473,10 @@ jQuery(window).on('load', function ($) {
   }
 
 });
+setTimeout(function()
+{
+  $("#message").fadeOut('slow')
+},4000)
 
 
 

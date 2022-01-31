@@ -3,8 +3,22 @@
 {% block title %}Our Menu{% endblock title %}
 {% block content %}
 <section>
+    {% if 'search' in request.path %}
     <div class="block">
-        <div class="fixed-bg" style="background-image: url(../static/images/topbg.jpg);"></div>
+        <div class="fixed-bg" style="background-image: url({% static 'images/topbg.jpg' %});"></div>
+        <div class="page-title-wrapper text-center">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="page-title-inner">
+                    <h1 itemprop="headline">Search Found</h1>
+                        <span>A Greate Restaurant Website</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="block">
+        {% static '' %}
+        <div class="fixed-bg" style="background-image: url({% static 'images/topbg.jpg' %});"></div>
         <div class="page-title-wrapper text-center">
             <div class="col-md-12 col-sm-12 col-lg-12">
                 <div class="page-title-inner">
@@ -14,6 +28,10 @@
             </div>
         </div>
     </div>
+
+    {% endif %}
+   
+
 </section>
 
 <div class="bread-crumbs-wrapper">
@@ -39,14 +57,21 @@
                             </div>
                         </div>
                         <ul class="filter-buttons center">
+                            {% if 'search' in request.path %}
+                            {% else %}
                             <li class="active"><a class="brd-rd30" data-filter="*" href={% url 'our_menu' %} itemprop="url">All</a></li>
-   
                             
-                            {% for catg in catg %}
                             
-                            <li class="active"><a class="brd-rd30" data-filter="*" href={% url 'our_catg' catg.slug %} itemprop="url">{{catg.catg_name}}</a></li>
-                            {% endfor %}
+                           
+                                {% for catg in catg %}
+                                    
+                                    <li class="active"><a class="brd-rd30" data-filter="*" href={% url 'our_catg' catg.slug %} itemprop="url">{{catg.catg_name}}</a></li>
+                                {% endfor %}
+
+                            {% endif %}
+
                         </ul>
+                        {% if food_Items %}
                         <div class="remove-ext">
                             <div class="row">
                                 {% for food in food_Items %}
@@ -59,9 +84,9 @@
                                     </div>
                                     <div class="popular-dish-info">
                                         <h4 itemprop="headline"><a href="{{food.get_url}}" title="" itemprop="url">{{food.food_name}}</a></h4>
-                                        <p itemprop="description">{{food.food_desc|slice:80}}</p>
+                                        <p itemprop="description">{{food.food_desc|slice:60}}</p>
                                         <span class="price">Rs {{food.food_price}}</span>
-                                        <a class="brd-rd4 " href="food-detail.html" title="Order Now" itemprop="url">Order Now</a>
+                                        <a class="brd-rd4 " href="{{food.get_url}}" title="Order Now" itemprop="url">View Details</a>
                                         
                                     </div>
                                 </div><!-- Popular Dish Box -->
@@ -72,6 +97,34 @@
                             
                             </div>
                         </div>
+                        {% else %}
+                        <h3 itemprop="headline">Food Items not Found!!</h3>
+                        {% endif %}
+                        {% if food_Items.has_other_pages %}
+                        <div class="pagination-wrapper text-center">
+                            <ul class="pagination justify-content-center">
+                                {% if food_Items.has_previous %}
+                                <li class="page-item prev"><a class="page-link brd-rd2" href="?page={{food_Items.previous_page_number}}" itemprop="url">PREVIOUS</a></li>
+                                {% else %}
+                                <li class="page-item prev disabled"><a class="page-link brd-rd2" href="#" itemprop="url">PREVIOUS</a></li>
+                                {% endif %}
+                                {% for number in food_Items.paginator.page_range %}
+                                {% if food_Items.number == number %}
+                                <li class="page-item active"><a class="page-link brd-rd2" href="#" itemprop="url">{{number}}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link brd-rd2" href="?page={{number}}" itemprop="url">{{number}}</a></li>
+
+                                {% endif %}
+                                {% endfor %}
+                                {% if food_Items.has_next %}
+                                <li class="page-item next"><a class="page-link brd-rd2" href="?page={{food_Items.next_page_number}}" itemprop="url">NEXT</a></li>
+                                {% else %}
+                                <li class="page-item next disabled"><a class="page-link brd-rd2" href="" itemprop="url">NEXT</a></li>
+
+                                {% endif %}
+                            </ul>
+                        </div><!-- Pagination Wrapper -->
+                        {% endif %}
                        
                     </div>
                 </div>

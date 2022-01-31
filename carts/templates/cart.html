@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+
+{% block content %}
+
+<!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons-->
+
+  
+{% if not cart_items %}
+<div style="margin-top: 100px; margin-bottom: 100px;">
+<h3 style="text-align: center; ">Your Shopping Cart is Empty</h3>
+<div class="text-center" style="margin-bottom: 20px;">
+	<a href="{% url 'our_menu'%}" class="btn btn-primary">Continue Shopping</a>
+</div>
+</div>
+{% else %}
+	
+<table id="cart" class="table table-hover table-condensed">
+	<thead>
+		<tr>
+			<th style="width:40%">Product</th>
+			<th style="width:8%">Price</th>
+			<th style="width:20%">Quantity</th>
+			<th style="width:8%" class="text-center">Subtotal</th>
+			<th style="width:10%"></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for cart in cart_items %}
+		<tr>
+			
+			<td data-th="Product">
+				
+				<div class="row">
+					<div class="col-sm-2 hidden-xs"><img src="{{cart.foodItems.food_pic.url}}" alt="..." class="img-responsive"/></div>
+					<div class="col-sm-10">
+						<h4 class="nomargin">{{cart.foodItems.food_name}}</h4>
+						<p>{{cart.foodItems.food_desc|slice:80}}</p>
+					</div>
+				</div>
+				<td data-th="Price">Rs {{cart.foodItems.food_price}}</td>
+				
+			<td data-th="Quantity">
+				<div class="number">
+					<a href="{% url 'minus_cart' cart.foodItems.id %}" class="minus">-</a>
+					<input type="text" value="{{cart.quantity}}"/>
+					<a href={% url 'add_cart' cart.foodItems.id %} class="plus">+</a>
+				</div>
+				
+			</td>
+			<td data-th="Subtotal" class="text-center">Rs {{cart.sub_total}}</td>
+			<td class="actions" data-th="">
+				
+				<a href="{% url 'delete_cart' cart.foodItems.id %}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>								
+			</td>
+				
+			</td>
+			
+			
+		</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		
+		<tr>
+			<td><a href="{% url 'our_menu'%}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+			<td colspan="2" class="hidden-xs"></td>
+			<td class="hidden-xs text-center"><strong>Total<br> Rs {{total}}</strong></td>
+			<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+		</tr>
+	</tfoot>
+</table>
+
+{% endif %}
+
+	
+	
+{% endblock %}

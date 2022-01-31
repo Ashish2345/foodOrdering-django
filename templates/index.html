@@ -5,13 +5,13 @@
 {% block content %}
 <section>
     <div class="block blackish opac50">
-        <div class="fixed-bg" style="background-image: url(static/images/parallax2.jpg);"></div>
+        <div class="fixed-bg" style="background-image: url({% static 'images/parallax2.jpg' %});"></div>
         <div class="restaurant-searching style2 text-center">
             <div class="restaurant-searching-inner">
                 <span>Delicious <i>Food</i> </span>
                 <h2 itemprop="headline">Order Delivery & Take-Out</h2>
-                <form class="restaurant-search-form2 brd-rd30">
-                    <input class="brd-rd30" type="text" placeholder="RESTAURANT NAME">
+                <form class="restaurant-search-form2 brd-rd30" action="{% url 'search' %}" method="GET">
+                    <input class="brd-rd30" type="text" placeholder="F00D NAME" name="keyword" style="color: black;font-size: 15px;">
                     <button class="brd-rd30 red-bg" type="submit">SEARCH</button>
                 </form>
             </div>
