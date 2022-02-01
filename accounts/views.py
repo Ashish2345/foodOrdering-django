@@ -1,12 +1,17 @@
 
 from genericpath import exists
+import imp
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponse
+
+from carts.models import Cart,CartItem
 from .forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
+import requests
+
 
 
 #Sending tokens for verifying user registration
@@ -16,6 +21,8 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from carts.models import Cart
+from carts.views import _cart_id
 # Create your views here.
 
 def logins(request):
@@ -31,13 +38,33 @@ def logins(request):
         
        log = authenticate(request,username=username,password=passwords)
        if log is not None:
+           try:
+               cart = Cart.objects.get(cart_id=_cart_id(request))
+               is_Cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+               if is_Cart_item_exists:
+                   cart_items = CartItem.objects.filter(cart=cart)                  
+                   for item in cart_items:
+                       item.user = log
+                       item.save()
+           except:
+                print("Error")
+
            login(request, log)
            messages.success(request,"You are now logged in")
-           return redirect('dashboard')
+           url = request.META.get('HTTP_REFERER')
+           try:
+                query = requests.utils.urlparse(url).query
+               
+                params = dict(x.split("=") for x in query.split('&'))
+                if 'next' in params:
+                    nextPage =params['next']
+                    return redirect(nextPage)         
+           except:
+                return redirect("dashboard")
        else:
             messages.warning(request,"Login Unsuccessful")
+            return redirect("login")
 
- 
     return render(request,"login.html",{"page":"login"})
 
 def register(request):

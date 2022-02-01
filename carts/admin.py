@@ -4,5 +4,8 @@ from .models import Cart,CartItem
 
 # Register your models here.
 admin.site.register(Cart)
-admin.site.register(CartItem)
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('user','foodItems','quantity')
+admin.site.register(CartItem,CartAdmin)
 
