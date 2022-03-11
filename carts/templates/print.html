@@ -1,0 +1,86 @@
+
+
+<table border="0" cellpadding="10" cellspacing="10" width="500px" align="center"
+>
+<tr>
+	<th colspan="4" align="left">
+		Customer Invoice<br>
+		-------------------------------------------------------------------------------------
+	</th>
+
+</tr>
+{% for carts in cart_items %}
+<tr>
+	<td align="left">
+		Foods
+	</td>
+    <td>
+		Quantity
+	</td>
+	<td>
+		Price
+	</td>
+    <td>
+		Subtotal
+	</td>
+</tr>
+{% endfor %}
+<tr>
+	<td colspan="4">
+		-------------------------------------------------------------------------------------
+	</td>
+</tr>
+
+{% for carts in cart_items %}
+
+<tr>
+	<td align="left">
+		{{carts.foodItems.food_name}}
+
+	</td>
+    <td>
+        {{quantity}}
+    </td>
+       
+    <td>
+        {{carts.foodItems.food_price}}
+    </td>
+	<td>
+		{{carts.sub_total}}
+	</td>
+{% endfor %}
+
+</tr>
+<td>
+
+<tr>
+	<td colspan="4">
+		-------------------------------------------------------------------------------------
+	</td>
+
+</tr>
+<tr>
+	<td colspan="4" align="right">
+		{{total}}
+	</td>
+</tr>
+<tr>
+	<td align="right" colspan="4">
+		Vat: 0%<br>
+		Additional Charges: 0%
+	</td>
+</tr>
+<tr>
+	<td colspan="4">
+		-------------------------------------------------------------------------------------<br>
+		Food Delivery Store
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="button" name="" value="Print" onclick="window.print()">
+	</td>
+</tr>
+
+	
+</table>

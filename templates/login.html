@@ -38,9 +38,6 @@ Already Verified?<a href="{% url 'login' %}" style="color: blue;"><b> Login</b><
                 </div>
             </div>
         </section>
-
-        
-
         <div class="bread-crumbs-wrapper">
             <div class="container">
                 <ol class="breadcrumb">
@@ -94,7 +91,7 @@ Already Verified?<a href="{% url 'login' %}" style="color: blue;"><b> Login</b><
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <a class="sign-btn" href="{% url 'register' %}" title="" itemprop="url">Not a member? Sign up</a>
-                                                            <a class="recover-btn" href="#" title="" itemprop="url">Recover my password</a>
+                                                            <a class="recover-btn" href="{% url 'forgetpasswords' %}" title="" itemprop="url">Recover my password</a>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -128,23 +125,17 @@ Already Verified?<a href="{% url 'login' %}" style="color: blue;"><b> Login</b><
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             {{reg.password1}}
-                                                           
                                                         </div>
-                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                                           
+                                                        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">    
                                                             {{reg.password2}}
-                                                        </div>
-
-
-                                                       
+                                                        </div>                                            
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <button class="red-bg brd-rd3" type="submit">REGISTER NOW</button>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
                                                             <a class="sign-btn" href="{% url 'login' %}" title="" itemprop="url">Already Registered? Sign in</a>
-                                                            <a class="recover-btn" href="#" title="" itemprop="url">Recover my password</a>
-                                                        </div>
-                                                        
+                                                            <a class="recover-btn" href="{% url 'forgetpasswords' %}" title="" itemprop="url">Recover my password</a>
+                                                        </div>                                              
                                                     </div>
                                                 </form>
                                             </div>

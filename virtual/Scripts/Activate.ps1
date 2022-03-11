@@ -70,6 +70,7 @@ If present, do not remove this function from the global namespace for the
 session.
 
 #>
+
 function global:deactivate ([switch]$NonDestructive) {
     # Revert to original values
 
@@ -239,6 +240,7 @@ if (Test-Path -Path Env:PYTHONHOME) {
 # Add the venv to the PATH
 Copy-Item -Path Env:PATH -Destination Env:_OLD_VIRTUAL_PATH
 $Env:PATH = "$VenvExecDir$([System.IO.Path]::PathSeparator)$Env:PATH"
+set DJANGO_SETTINGS_MODULE=FoodDeliveryProject.settings
 
 # SIG # Begin signature block
 # MIIc9wYJKoZIhvcNAQcCoIIc6DCCHOQCAQExDzANBglghkgBZQMEAgEFADB5Bgor

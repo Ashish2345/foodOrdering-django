@@ -1,13 +1,9 @@
-import imp
-from statistics import mode
-from tabnanny import verbose
-from xml.parsers.expat import model
+
 from django.db import models
 from deliverFood.models import Food_Items
 from django.contrib.auth.models import User
 
 # Create your models here.
-
 
 class Cart(models.Model):
     cart_id = models.CharField(max_length=200, blank=True)

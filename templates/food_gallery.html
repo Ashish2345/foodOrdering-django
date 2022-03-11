@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %} Food Gallery {% endblock title %} 
-
 {% block content %}
-
-
-
 
 <section>
     <div class="block">
@@ -35,22 +31,27 @@
         <div class="container">
             <div class="row mrg15">
                 <div class="col-md-12">
-                    <div class="sec-box">
+                    <div class="sec-box">     
                     <div class="masonry">
+                        {% for pics in pics %}
                         <div class="col-md-4 col-sm-6 col-lg-4 filter-item">
+                            
                             <div class="gallery-bx sudo-bg-red wow zoomIn" data-wow-delay="0.2s">
-                                <img src={% static 'images/resource/gallery1-1.jpg' %} alt="gallery1-1.jpg" itemprop="image">
+                                <img src={{pics.food_pics.url}} alt="gallery1-1.jpg" itemprop="image">
                                 <div class="gallery-info-btns">
-                                    <a class="yellow-bg brd-rd50" href={% static 'images/resource/gallery1-1.jpg' %} data-fancybox="gallery" title="Click to See Image" itemprop="url"><i class="fa fa-search"></i></a>
-                                    <a class="yellow-bg brd-rd50" href="gallery-detail.html" title="Gallery Detail" itemprop="url"><i class="fa fa-chain"></i></a>
+                                    <a class="yellow-bg brd-rd50" href={{pics.food_pics.url}} data-fancybox="gallery" 
+                                    
+                                    
+                                    title="Click to See Image" itemprop="url"><i class="fa fa-search"></i></a>
+                                    <a class="yellow-bg brd-rd50" href="https://en.wikipedia.org/wiki/{{pics.food_names}}" title="Gallery Detail" 
+                                    itemprop="url"><i class="fa fa-chain"></i></a>
                                 </div>
-                                <h3 itemprop="headline"><a href="gallery-detail.html" title="Gallery Detail" itemprop="url">Tried Their Amazing Grilled Ham</a></h3>
+                                <h3 itemprop="headline"><a href="gallery-detail.html" title="Gallery Detail" itemprop="url">{{pics.food_identify}}</a></h3>
                             </div>
+                             
                         </div>
-                        
-                        
-                    </div>
-                    
+                        {% endfor %}               
+                    </div>                           
                     </div>
                 </div>
             </div>

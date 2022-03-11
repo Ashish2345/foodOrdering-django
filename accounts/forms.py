@@ -9,9 +9,6 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ("username","email","password1","password2")
 
-    
-
-            
 
     def __init__(self,*args,**kwargs):
         super(UserRegistrationForm,self).__init__(*args,**kwargs)

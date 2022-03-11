@@ -1,23 +1,37 @@
 
-from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Catg_Foods, Food_Items
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from carts.models import Cart,CartItem
 from carts.context_processor import _cart_id
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Contact_Us
+from .models import Contact_Us, Food_pics
 from accounts.forms import UserRegistrationForm
 
-
-
 # Create your views here.
-def main_page(request):
+def main_page(request, slug=None):
     contex = UserRegistrationForm()
-    context = {"reg":contex}
+    categories = None
+    food_Items = None
+    food_Itemss = Food_Items.objects.all()[:3]
+    if(slug != None):
+        categories = get_object_or_404(Catg_Foods, slug=slug)
+        food_Items = Food_Items.objects.filter(
+            category=categories, is_available=True)
+        paginator = Paginator(food_Items, 6)
+        page = request.GET.get('page')
+        paged_product = paginator.get_page(page)
+    else:
+        food_Items = Food_Items.objects.all().filter(is_available=True).order_by("-id")
+        paginator = Paginator(food_Items, 6)
+        page = request.GET.get('page')
+        paged_product = paginator.get_page(page)
+    
+    context = {"reg":contex,
+            'categories': categories,
+        'food_Items': paged_product,
+        'food_Itemss': food_Itemss}
     return render(request, 'index.html',context)
-
 
 def our_menu(request, slug=None):
     categories = None
@@ -43,13 +57,10 @@ def our_menu(request, slug=None):
 
     return render(request, 'ourmenu.html', context)
 
-
 def food_detail(request, slug, foodslug,total=0, quantity=0, cart_items=None):
     try:
         food_detail = Food_Items.objects.get(
             category__slug=slug, slug=foodslug)
-        
-     
     except Exception as e:
         raise e
     context = {
@@ -71,22 +82,23 @@ def search(request):
     }
     return render(request, 'ourmenu.html', context)
 
-
 def food_gallery(request):
-    return render(request, 'food_gallery.html')
-
+    pics = Food_pics.objects.all().order_by("-id")
+    context = {
+        "pics":pics
+    }
+    return render(request, 'food_gallery.html',context)
 
 def about_us(request):
     return render(request, 'about_us.html')
 
-
 def food_details(request):
     return render(request, 'food_details.html')
 
+def sucess(request):
+    return render(request, 'sucess.html')
 
 def contact_us(request):
-    
-    
     if request.method == "POST":
 
         name = request.POST.get("name")
@@ -98,10 +110,23 @@ def contact_us(request):
         form.save()
         return redirect("mainpage")
 
-       
-
     return render(request, 'contact_us.html')
-
 
 def login(request):
     return render(request, 'login.html')
+
+def checkout(request,total=0,quantity=0):
+    current_user = request.user
+    cart_items = CartItem.objects.filter(user=current_user)
+    total=0 
+    quantity=0
+    for cart in cart_items:
+        total += (cart.foodItems.food_price * cart.quantity)
+        quantity += cart.quantity
+    grand_total = total - 100
+    context = {
+
+        "total":total,
+        "grand":grand_total
+    }
+    return render(request, 'checkout_address.html',context)

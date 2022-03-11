@@ -1,18 +1,13 @@
 
-from genericpath import exists
-import imp
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.http import HttpResponse
 
 from carts.models import Cart,CartItem
 from .forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
 import requests
-
-
 
 #Sending tokens for verifying user registration
 from django.contrib.sites.shortcuts import get_current_site
@@ -60,7 +55,7 @@ def logins(request):
                     nextPage =params['next']
                     return redirect(nextPage)         
            except:
-                return redirect("dashboard")
+                return redirect("mainpage")
        else:
             messages.warning(request,"Login Unsuccessful")
             return redirect("login")

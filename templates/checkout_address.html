@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}CheckOut{% endblock title %}
+{% block content %}
+
+
+<div class="container mb-5">
+    <main>
+      <div class="py-5 text-center" style="margin-top: -180px;">
+        <h2 style="font-weight: bold;">Checkout</h2>
+      </div>
+  
+      <div class="row g-3">
+        <div class="col-md-5 col-lg-4 order-md-last">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted" style="padding-left: 5px; margin-bottom: 10px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; color: black;">Your cart</span>
+            <span class="badge bg-secondary rounded-pill">{{count}}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0">Total</h6>
+                <small class="text-muted">Cart Items</small>
+              </div>
+              <span class="text-muted">{{total}}</span>
+            </li>
+           
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Offer</h6>
+                <small>Grand Offer</small>
+              </div>
+              <span class="text-success">−100</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total  </span>
+              <strong>{{grand}}</strong>
+            </li>
+          </ul>
+  
+        </div>
+        <div class="col-md-7 col-lg-8" style="margin-top: 8px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight: bold;">
+          <h4 class="mb-3">Shipping address</h4>
+
+          <form class="needs-validation" novalidate="" action="{% url 'place_order' %}" method="post">
+              {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" class="form-control" name="first_name" id="firstName" placeholder="" value="" required="">
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="lastName" class="form-label">Last name</label>
+                <input type="text" class="form-control" name="last_name" id="lastName" placeholder="" value="" required="">
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+              <div class="row g-3" style="padding-left: 15px;">
+                <div class="col-sm-6">
+                  <label for="Email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="firstName" name="email"  placeholder="" value="" required="">
+                  <div class="invalid-feedback">
+                    Valid Email is required.
+                  </div>
+                </div>
+    
+                <div class="col-sm-6" style="padding-left: 15px;">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="number" class="form-control" name="phone" id="lastName" placeholder="" value="" required="">
+                  <div class="invalid-feedback">
+                    Valid phone is required.
+                  </div>
+                </div>
+  
+              <div class="col-12" style="padding-left: 15px;">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" required="">
+                <div class="invalid-feedback">
+                  Please enter your shipping address.
+                </div>
+              </div>
+              <div class="col-12" style="padding-left: 15px;">
+                <label for="address" class="form-label"  name="order_note" >Order Note</label>                <input type="" class="form-control" id="address" placeholder="order note for us." required="">
+                <div class="invalid-feedback">
+                  Please enter order note for us.
+                </div>
+              </div>
+            <hr class="my-4">
+            <h4 class="mb-3" style="padding-left: 15px;">Payment</h4>
+            <div class="my-3" style="padding-left: 15px;"">
+              <div class="form-check">
+                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+                <label class="form-check-label" for="credit">Cash On Delivery</label>
+              </div>
+            <hr class="my-4">
+            <button class="w-30 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+  </div>
+  
+  {% endblock content %}
+
+ 
