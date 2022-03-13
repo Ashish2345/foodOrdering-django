@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-gwxof79l(701#g(p1b+(a2fr@+a0bbof1nomul7oydc4v5t^jv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','food-order-nep.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,8 +88,12 @@ WSGI_APPLICATION = 'FoodDeliveryProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test2',
+        'USER': 'sif',
+        'PASSWORD': 'password',
+        'PORT': '3305',
+        'HOST': 'localhost'
     }
 }
 

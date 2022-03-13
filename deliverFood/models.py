@@ -52,7 +52,6 @@ class Contact_Us(models.Model):
     user_email = models.EmailField(max_length=254,unique=True)
     subject = models.CharField(max_length=200)
     message = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
     class Meta:
         verbose_name = "Contact Us"
         verbose_name_plural = "Contact Us"
@@ -60,4 +59,17 @@ class Contact_Us(models.Model):
     def __str__(self):
         return self.subject
 
+
+class Author(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.first_name
+
+class Book(models.Model):
+    title = models.CharField(max_length=100)
+    authors = models.ManyToManyField(to=Author)
    
+    def __str__(self):
+        return self.title
